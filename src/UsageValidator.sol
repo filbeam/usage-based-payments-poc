@@ -11,7 +11,7 @@ contract UsageValidator is IValidator {
     uint256 public constant RATE_PER_TIB = 10e6; // $10, scaled to 6 decimals
 
     // Constant rate for all rails
-    uint256 public constant RATE = RATE_PER_TIB / TIB_IN_BYTES;
+    uint256 public constant RATE_PER_BYTE = RATE_PER_TIB / TIB_IN_BYTES;
 
     // usageByRailAndEpoch[railId][epoch] = usage
     mapping(bytes32 => mapping(uint256 => uint256)) public usageByRailAndEpoch;
@@ -44,15 +44,15 @@ contract UsageValidator is IValidator {
         uint256 toEpoch,
         uint256 /*rate*/
     ) external override returns (ValidationResult memory result) {
+        bool foundData = false;
         bytes32 key = _railKey(railId);
         uint256 sum = 0;
         uint256 lastEpochWithData = 0;
-        bool foundData = false;
 
         for (uint256 epoch = fromEpoch; epoch <= toEpoch; epoch++) {
             uint256 usage = usageByRailAndEpoch[key][epoch];
             if (usage > 0) {
-                sum += usage * RATE;
+                sum += usage * RATE_PER_BYTE;
                 lastEpochWithData = epoch;
                 foundData = true;
             }

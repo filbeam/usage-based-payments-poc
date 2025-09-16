@@ -94,8 +94,8 @@ contract UsageValidatorTest is Test {
 
         IValidator.ValidationResult memory result = usageValidator.validatePayment(railId, 0, fromEpoch, toEpoch, 0);
 
-        // Expected sum: (2000 * RATE) + (1500 * RATE) = (2000 + 1500) * RATE
-        uint256 expectedSum = 3500 * usageValidator.RATE();
+        // Expected sum: (2000 * RATE_PER_BYTE) + (1500 * RATE_PER_BYTE) = (2000 + 1500) * RATE_PER_BYTE
+        uint256 expectedSum = 3500 * usageValidator.RATE_PER_BYTE();
         assertEq(result.modifiedAmount, expectedSum);
         assertEq(result.settleUpto, 4);
         assertEq(result.note, "Settled up to available data");
@@ -130,8 +130,8 @@ contract UsageValidatorTest is Test {
 
         IValidator.ValidationResult memory result = usageValidator.validatePayment(railId, 0, fromEpoch, toEpoch, 0);
 
-        // Expected sum: (1000 * RATE) + (2000 * RATE) = (1000 + 2000) * RATE
-        uint256 expectedSum = 3000 * usageValidator.RATE();
+        // Expected sum: (1000 * RATE_PER_BYTE) + (2000 * RATE_PER_BYTE) = (1000 + 2000) * RATE_PER_BYTE
+        uint256 expectedSum = 3000 * usageValidator.RATE_PER_BYTE();
         assertEq(result.modifiedAmount, expectedSum);
         assertEq(result.settleUpto, 5);
         assertEq(result.note, "Settled up to available data");
