@@ -1,17 +1,16 @@
-## Foundry
+## Usage-Based Payments PoC
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This repository provides a **Proof of Concept (PoC)** for a usage-based payments validator designed for FilCDN-related payment rails.
+For background and additional details on usage-based payments in FilCDN, please refer to the [FilCDN usage-based payments proposal](https://spacemeridian.notion.site/FilCDN-M3-Usage-based-payments-247cdd5cccdb80018bdce4298eb66d18?source=copy_link).
 
-Foundry consists of:
+Because this is only a proof-of-concept, the implementation intentionally omits several features that would be required in a production-ready system, including:
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
+* **No Verifier contract**: Usage data is posted directly to the [Validator](./src/UsageValidator.sol) contract.
+* **No dataset/rail mapping**: The Validator contract does not track relationships between datasets and payment rails.
+* **Simplified rollup data**: Usage data sent to the Validator is pre-normalized. In production, the contract would receive raw dataset usage and handle mapping to payment rails.
+* **Non-upgradeable contracts**: Contracts cannot be upgraded once deployed.
+* **No access control**: Authorization and role-based access mechanisms are not implemented.
+* **Missing off-chain reporting**: The off-chain component responsible for collecting and submitting usage data has not been implemented.
 
 ## Usage
 
