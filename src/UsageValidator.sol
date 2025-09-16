@@ -46,7 +46,7 @@ contract UsageValidator is IValidator {
     ) external override returns (ValidationResult memory result) {
         bytes32 key = _railKey(railId);
         uint256 sum = 0;
-        uint256 lastEpochWithData = fromEpoch - 1;
+        uint256 lastEpochWithData = 0;
         bool foundData = false;
 
         for (uint256 epoch = fromEpoch; epoch <= toEpoch; epoch++) {
