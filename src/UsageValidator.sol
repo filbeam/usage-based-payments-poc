@@ -13,8 +13,6 @@ contract UsageValidator is IValidator {
     // Constant rate for all rails
     uint256 public constant RATE = RATE_PER_TIB / TIB_IN_BYTES;
 
-    // activeRails[railId] = isActive
-    mapping(bytes32 => bool) public activeRails;
     // usageByRailAndEpoch[railId][epoch] = usage
     mapping(bytes32 => mapping(uint256 => uint256)) public usageByRailAndEpoch;
     // lastSettledEpoch[railId] = last epoch settled
@@ -78,10 +76,7 @@ contract UsageValidator is IValidator {
         }
     }
 
-    function railTerminated(uint256 railId, address, /*terminator*/ uint256 /*endEpoch*/ ) external override {
-        bytes32 key = _railKey(railId);
-        activeRails[key] = false;
-    }
+    function railTerminated(uint256, /*railId*/ address, /*terminator*/ uint256 /*endEpoch*/ ) external override {}
 
     // Helper to convert uint256 railId to bytes32
     function _railKey(uint256 railId) internal pure returns (bytes32) {
