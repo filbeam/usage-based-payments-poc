@@ -41,7 +41,7 @@ contract UsageValidator is IValidator {
 
     function validatePayment(
         uint256 railId,
-        uint256 /*proposedAmount*/,
+        uint256, /*proposedAmount*/
         uint256 fromEpoch,
         uint256 toEpoch,
         uint256 /*rate*/
@@ -78,7 +78,7 @@ contract UsageValidator is IValidator {
         }
     }
 
-    function railTerminated(uint256 railId, address /*terminator*/, uint256 /*endEpoch*/) external override {
+    function railTerminated(uint256 railId, address, /*terminator*/ uint256 /*endEpoch*/ ) external override {
         bytes32 key = _railKey(railId);
         activeRails[key] = false;
     }
