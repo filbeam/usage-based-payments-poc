@@ -41,8 +41,8 @@ contract FilBeamOperator {
     ) external onlyOwner {
         uint256 epoch = block.number;
         for (uint256 i = 0; i < dataSetIds.length; i++) {
-            cdnUsageByDataSetAndEpoch[dataSetIds[i]][epoch] = cdnUsages[i];
-            cacheMissUsageByDataSetAndEpoch[dataSetIds[i]][epoch] = cacheMissUsages[i];
+            cdnUsageByDataSetAndEpoch[dataSetIds[i]][epoch] += cdnUsages[i];
+            cacheMissUsageByDataSetAndEpoch[dataSetIds[i]][epoch] += cacheMissUsages[i];
         }
     }
 
@@ -53,7 +53,6 @@ contract FilBeamOperator {
         uint256 lastEpochWithData = 0;
 
         uint256 fromEpoch = lastSettledEpoch[dataSetId] + 1;
-        // settle up to previous epoch
         uint256 toEpoch = block.number - 1;
 
         for (uint256 epoch = fromEpoch; epoch <= toEpoch; epoch++) {

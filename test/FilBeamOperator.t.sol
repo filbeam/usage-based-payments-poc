@@ -32,6 +32,11 @@ contract FilBeamOperatorTest is Test {
 
         assertEq(filBeamOperator.cdnUsageByDataSetAndEpoch(dataSetId, currentEpoch), cdnUsages[0]);
         assertEq(filBeamOperator.cacheMissUsageByDataSetAndEpoch(dataSetId, currentEpoch), cacheMissUsages[0]);
+
+        // report same amounts again for on the same epoch
+        filBeamOperator.reportRollupUsage(dataSetIds, cdnUsages, cacheMissUsages);
+        assertEq(filBeamOperator.cdnUsageByDataSetAndEpoch(dataSetId, currentEpoch), cdnUsages[0] * 2);
+        assertEq(filBeamOperator.cacheMissUsageByDataSetAndEpoch(dataSetId, currentEpoch), cacheMissUsages[0] * 2);
     }
 
     function testSettleCDNPaymentRails() public {
