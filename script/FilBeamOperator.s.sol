@@ -2,17 +2,17 @@
 pragma solidity ^0.8.13;
 
 import {Script} from "forge-std/Script.sol";
-import {UsageValidator} from "../src/UsageValidator.sol";
+import {FilBeamOperator} from "../src/FilBeamOperator.sol";
 
-contract UsageValidatorScript is Script {
-    UsageValidator public usageValidator;
+contract FilBeamOperatorScript is Script {
+    FilBeamOperator public filBeamOperator;
 
     function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
 
-        usageValidator = new UsageValidator();
+        filBeamOperator = new FilBeamOperator(address(0));
 
         vm.stopBroadcast();
     }
